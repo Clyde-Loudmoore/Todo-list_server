@@ -6,7 +6,7 @@ const MongoClient = require('mongodb').MongoClient;
 const mongoClient = new MongoClient('mongodb://127.0.0.1:27017/');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 app.use(express.json());
 app.use('/api', routes);
