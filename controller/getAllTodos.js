@@ -7,6 +7,7 @@ const getAllTodos = async (_, res) => {
     const db = mongoClient.db('todosdb');
     const collection = db.collection('todos');
     const result = await collection.find({}).toArray();
+    res.header('Access-Control-Allow-Origin', '*');
     res.send(result);
   } catch (err) {
     console.log(err);

@@ -9,13 +9,14 @@ const editTodo = async (req, res) => {
     const collection = db.collection('todos');
     const todoValue = req.body.value;
     const todoStatus = req.body.status;
-    const id = new objectId(req.params.id);
+    const id = new objectId(req.params._id);
 
     const result = await collection.findOneAndUpdate(
       { _id: id },
       { $set: { value: todoValue, status: todoStatus } },
       { returnDocument: 'after' }
     );
+    res.header('Access-Control-Allow-Origin', '*');
     res.send(result);
   } catch (err) {
     console.log(err);
