@@ -1,24 +1,22 @@
+const express = require('express');
+const bodyParser = require('body-parser');
 require('dotenv').config();
 const cors = require('cors');
-const routes = require('./routes');
-
-const express = require('express');
-
-const MongoClient = require('mongodb').MongoClient;
-const mongoClient = new MongoClient('mongodb://127.0.0.1:27017/');
-
 const app = express();
+const db = require('./queries');
+
 const PORT = process.env.DEV_PORT;
 
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use('/api', routes);
 
-process.on('SIGINT', async () => {
-  await mongoClient.close();
-  console.log(PORT);
-  console.log('Приложение завершило работу');
-  process.exit();
+app.get('/api/todos', db.getAllTodos);
+app.get('/api/todos/:id', db.getTodoById);
+app.post('/api/todos', db.createTodo);
+app.patch('/api/todos/:id', db.editTodo);
+app.delete('/api/todos/:id', db.deleteTodo);
+
+app.listen(PORT, () => {
+  console.log(`App running on port ${PORT}`);
 });
-
-app.listen(PORT);
