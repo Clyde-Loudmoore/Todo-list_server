@@ -1,23 +1,23 @@
-const MongoClient = require('mongodb').MongoClient;
-const mongoClient = new MongoClient('mongodb://127.0.0.1:27017/');
+const mongoose = require('mongoose');
+const objectId = require('mongodb').ObjectId;
+const Todo = require('../db/models/schemeTodo');
+const config = require('../config');
 
 const createTodo = async (req, res) => {
+  const todoValue = req.body.value;
+  const todoStatus = req.body.status;
+
   try {
-    await mongoClient.connect();
-
-    const db = mongoClient.db('todosdb');
-    const collection = db.collection('todos');
-
-    const todoValue = req.body.value;
-    const todo = { value: todoValue, status: false };
-
-    const result = await collection.insertOne(todo);
-    await res.json(result);
+    await mongoose.connect(config.mongoUrl);
+    const id = new objectId(req.params.id);
+    const todo = new Todo({ _id: id, value: todoValue, status: todoStatus });
+    await todo.save();
+    res.json(todo);
   } catch (err) {
     console.log(err);
     res.sendStatus(400);
   } finally {
-    await mongoClient.close();
+    await mongoose.disconnect();
   }
 };
 

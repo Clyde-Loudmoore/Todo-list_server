@@ -1,11 +1,11 @@
-const getAllTodos = require('./getAllTodos');
+const getTodos = require('./getTodos');
 const createTodo = require('./createTodo');
 const deleteTodo = require('./deleteTodo');
-const editTodo = require('./editTodo');
+const updateTodo = require('./updateTodo');
 
 module.exports = {
-  getAllTodos,
+  getTodos,
   createTodo,
   deleteTodo,
-  editTodo,
+  updateTodo,
 };
