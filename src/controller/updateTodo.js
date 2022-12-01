@@ -1,18 +1,20 @@
 const mongoose = require('mongoose');
+const objectId = require('mongodb').ObjectId;
 const Todo = require('../db/models/schemeTodo');
 const config = require('../config');
 
 const updateTodo = async (req, res) => {
-  const todoValue = req.body.value;
-  const todoStatus = req.body.statys;
+  const { value, status } = req.body;
+
   try {
     await mongoose.connect(config.mongoUrl);
-    // const _id = Todo._id;
-    const result = await Todo.updateOne({
-      value: todoValue, status: todoStatus
+    const _id = objectId(req.params.todoId);
+    const result = await Todo.findByIdAndUpdate(_id, {
+      value,
+      status,
     });
-    console.log(result);
-    res.send(result);
+
+    res.json(result);
   } catch (err) {
     console.log(err);
     res.sendStatus(404);

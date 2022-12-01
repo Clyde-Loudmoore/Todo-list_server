@@ -8,7 +8,7 @@ const deleteTodo = async (req, res) => {
     await mongoose.connect(config.mongoUrl);
     const _id = objectId(req.params.todoId);
     await Todo.deleteOne(_id);
-    console.log(_id);
+    
     res.sendStatus(204);
   } catch (err) {
     console.log(err);
