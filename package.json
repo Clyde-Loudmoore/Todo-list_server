@@ -10,17 +10,17 @@
     "express": "^4.18.2",
     "fs": "^0.0.1-security",
     "mongodb": "4.12",
-    "mongoose": "^6.7.3",
+    "mongoose": "^6.7.4",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13"
   },
   "name": "server-todo-list",
   "version": "1.0.0",
-  "main": "src/app.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js"
+    "start": "node src/inde.js",
+    "dev": "nodemon src/inde.js"
   },
   "keywords": [],
   "author": "",
